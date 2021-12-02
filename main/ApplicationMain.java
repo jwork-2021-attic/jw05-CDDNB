@@ -1,5 +1,5 @@
 package main;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,20 +7,25 @@ import java.awt.event.KeyListener;
 import asciiPanel.AsciiFont;
 import asciiPanel.AsciiPanel;
 import main.ApplicationMain;
-import screen.PlayScreen;
-import screen.Screen;
+import screen.*;
 
 public class ApplicationMain extends JFrame implements KeyListener{
     private AsciiPanel terminal;
     private Screen screen;
+    //private JLabel label;
     
     public ApplicationMain() {
         super();
-        Timer timer = new Timer(this);
+        this.setTitle("Java Game");
+        //Timer timer = new Timer(this);
+        //this.setSize(80, 65);
         terminal = new AsciiPanel(60, 60, AsciiFont.TALRYTH_15_15);
+        
+        //terminal.add(label);
         add(terminal);
         pack();
-        screen = new PlayScreen(60, 60, this);
+        screen = new StartScreen(this);
+        //screen = new PlayScreen(60, 60, this);
         addKeyListener(this);
         repaint();
     }
@@ -46,5 +51,7 @@ public class ApplicationMain extends JFrame implements KeyListener{
 
     public void changeScreen(Screen screen) {
         this.screen = screen;
+        //this.add(new JLabel("end game"));
+        repaint();
     }
 }

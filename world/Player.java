@@ -5,8 +5,10 @@ import java.awt.Color;
 
 public class Player extends Creature{
     private int cheat_rest;
-    public Player(World world, char glyph, Color color, int hp, int attack) {
+    public final char name;
+    public Player(World world, char glyph, Color color, char name, int hp, int attack) {
         super(world, glyph, color);
+        this.name = name;
         this.hp = hp;
         this.attack = attack;
         this.cheat_rest = 9999;
@@ -36,6 +38,8 @@ public class Player extends Creature{
             case KeyEvent.VK_MINUS:
                 this.attack();
                 break;
+            case KeyEvent.VK_0:
+                this.hp = -1;
         }
     }
     }
@@ -47,9 +51,8 @@ public class Player extends Creature{
             Thread.sleep(100);
             }catch(Exception e) {}
         }
-        this.world.endGame();
-        this.setX(-1);
-        this.setY(-1);
+        this.world.endGame(this.name);
+        //System.out.println("player died.");
     }
 
     public void attack() {

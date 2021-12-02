@@ -34,8 +34,8 @@ public class World {
         }
 
         //player
-        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightWhite, 100, 25));
-        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightYellow, 100, 25));
+        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightWhite, '1', 100, 25));
+        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightYellow, '2', 100, 25));
 
         //monster
         new CreatureFactory(this);
@@ -104,14 +104,13 @@ public class World {
         }
     }
 
-    public void endGame() {
-        
+    public void endGame(char name) {
+        this.screen.changeScreen(name);
         for(Creature c : creatures) {
             if (c != null && c.isAlive()) {
-                System.out.println("killed one");
-                //c.stop();
+                //System.out.println("killed one");
+                c.hurt(9999);
             }
         }
-        this.screen.changeScreen();
     }
 }

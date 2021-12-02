@@ -2,12 +2,19 @@ package screen;
 
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
-//import com.apple.eawt.Application;
+import main.ApplicationMain;
 
-public interface Screen {
-    public void displayOutput(AsciiPanel terminal);
+public class Screen {
+    protected final ApplicationMain app;
+    public Screen(ApplicationMain app) { this.app = app; }
 
-    public void respondToUserInput(KeyEvent e);
+    public void displayOutput(AsciiPanel terminal){}
 
-    public void changeScreen();
+    public void respondToUserInput(KeyEvent e){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            changeScreen('c');
+        }
+    }
+
+    public void changeScreen(char c){}
 }

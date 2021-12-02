@@ -28,6 +28,7 @@ public class Monster extends Creature {
             if(hp < 0)break;
             attack(); 
         }
+        //System.out.println("Monster died.");
         this.world.killMonster(this);
     }
 }
