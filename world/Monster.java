@@ -12,13 +12,13 @@ public class Monster extends Creature {
     public void run() {
         Random rand = new Random();
         while(true) {
-            for(int i = 0; i < 10; i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {}
-                if(hp < 0) break;
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {}
+            if (this.checkState() == 1){
+                fall();
+                continue;
             }
-            this.moveBy(rand.nextInt(4));
             for (int i = 0; i < 10; i++) {
                 try {
                     Thread.sleep(100);
@@ -26,9 +26,9 @@ public class Monster extends Creature {
                 if(hp < 0)break;
             }
             if(hp < 0)break;
+            this.moveBy(rand.nextInt(4));
             attack(); 
         }
-        //System.out.println("Monster died.");
         this.world.killMonster(this);
     }
 }

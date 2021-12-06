@@ -9,8 +9,8 @@ public class StartScreen extends Screen{
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
-        terminal.write("Welcome to my Java Game!", 17, 20);
-        terminal.write("Press Enter to start.", 18, 40);
+            terminal.write("Welcome to my Java Game!", 17, 10, AsciiPanel.white);
+            terminal.write("Press Enter to start.", 18, 20, AsciiPanel.white);
     }
 
     @Override

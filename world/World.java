@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import main.Timer;
 import screen.PlayScreen;
+import java.io.*;
 
 public class World {
     private Tile[][] tiles;
@@ -19,8 +20,30 @@ public class World {
         this.height = h;
         this.screen = screen;
         this.creatures = new ArrayList<>();
+        tiles = new Tile[w][h];
         //map
-        MazeGenerator mazeGenerator = new MazeGenerator(width<height?width:height);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(
+					"resources/map.txt"));
+			for(int j = 0; j < height; j++) {
+                String line = reader.readLine();
+                //System.out.println(line);
+                String[] splitLine = line.split(" ");
+                for(int i = 0; i < width; i++) {
+                    if(splitLine[i].equals("1")) {
+                        tiles[i][j] = Tile.WALL;
+                    }
+                    else if(splitLine[i].equals("2")) {
+                        tiles[i][j] = Tile.LADDER;
+                    }
+                    else
+                        tiles[i][j] = Tile.SPACE;
+                }
+            }
+            reader.close();
+        } catch(IOException e) {}
+
+        /*MazeGenerator mazeGenerator = new MazeGenerator(width<height?width:height);
         int maze[][] = mazeGenerator.getMaze();
         tiles = new Tile[w][h];
         for(int i = 0; i < width; i++) {
@@ -31,14 +54,23 @@ public class World {
                 else
                     tiles[i][j] = Tile.WALL;
             }
-        }
+        }*/
 
         //player
-        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightWhite, '1', 100, 25));
-        this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightYellow, '2', 100, 25));
+        //this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightWhite, '1', 100, 25));
+        //this.addAtEmptyLocation(new Player(this, (char)2, AsciiPanel.brightYellow, '2', 100, 25));
+        this.addNewCreature(new Player(this, (char)2, AsciiPanel.brightWhite, '1', 100, 25));
+        this.addNewCreature(new Player(this, (char)2, AsciiPanel.brightYellow, '2', 100, 25));
 
         //monster
         new CreatureFactory(this);
+    }
+
+    public void addNewCreature(Creature creature) {
+        int x = (int) (Math.random() * this.width);
+        creature.setX(x);
+        creature.setY(0);
+        this.creatures.add(creature);
     }
 
     public void addAtEmptyLocation(Creature creature) {
@@ -47,7 +79,7 @@ public class World {
         do {
             x = (int) (Math.random() * this.width);
             y = (int) (Math.random() * this.height);
-        } while (tiles[x][y] != Tile.FLOOR || this.creature(x, y) != null);
+        } while (tiles[x][y] != Tile.SPACE || this.creature(x, y) != null);
         creature.setX(x);
         creature.setY(y);
         this.creatures.add(creature);
@@ -94,14 +126,6 @@ public class World {
             ((Player)creatures.get(0)).respondToUserInput(keyCode);
         else
             ((Player)creatures.get(1)).respondToUserInput(keyCode);
-    }
-
-    public void ruin(int x, int y) {
-        if (x < 0 || x > width || y < 0 || y > height)
-            return;
-        if (tiles[x][y] == Tile.WALL) {
-            tiles[x][y] = Tile.FLOOR;
-        }
     }
 
     public void endGame(char name) {

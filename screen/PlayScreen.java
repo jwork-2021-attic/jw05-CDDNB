@@ -2,6 +2,7 @@ package screen;
 
 import asciiPanel.AsciiPanel;
 import world.World;
+import world.Creature;
 import java.awt.event.KeyEvent;
 import main.Timer;
 
@@ -21,16 +22,16 @@ public class PlayScreen extends Screen {
         this.world = new World(width, height, this);
     }
 
-    public void displayOutput(AsciiPanel terminal) {
+    /*public void displayOutput(AsciiPanel terminal) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 terminal.write((char)16, x, y, world.color(x, y));
             }
         }
         
-    }
+    }*/
 
-    /*public void displayOutput(AsciiPanel terminal) {
+    public void displayOutput(AsciiPanel terminal) {
         //map
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -40,10 +41,10 @@ public class PlayScreen extends Screen {
 
         //creature
         for (Creature c : world.getCreatures()) {
-            if (c != null && c.isAlive())
+            if (c != null && c.isAlive() && c.x() > 0 && c.x() < width && c.y() > 0 && c.y() < height)
                 terminal.write(c.glyph(), c.x(), c.y(), c.color());
         }
-    }*/
+    }
 
     public void respondToUserInput(KeyEvent e) {
         world.respondToUserInput(e);

@@ -13,7 +13,7 @@ public class Timer extends Thread {
     public void run() {
         while (on) {
             try {
-                Thread.sleep(300);
+                Thread.sleep(40);
             } catch (Exception e) {}
             app.repaint();
         }

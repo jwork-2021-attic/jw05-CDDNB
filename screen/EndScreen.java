@@ -17,8 +17,8 @@ public class EndScreen extends Screen{
     }
     @Override
     public void displayOutput(AsciiPanel terminal){
-        terminal.write("Winner : Player" + winner, 20, 25);
-        terminal.write("Press Enter to play again.", 15, 35);
+        terminal.write("Winner : Player" + winner, 20, 15);
+        terminal.write("Press Enter to play again.", 15, 20);
     }
     
     @Override

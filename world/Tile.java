@@ -5,13 +5,13 @@ import java.awt.Color;
 
 public enum Tile {
 
-    FLOOR((char) 250, AsciiPanel.green),
+    SPACE((char) 250, AsciiPanel.green),
 
-    WALL((char) 177, AsciiPanel.brightBlack),
+    WALL((char) 177, AsciiPanel.cyan),
 
-    BOUNDS('x', AsciiPanel.magenta),
-    
-    STEPPEDFLOOR((char) 250, AsciiPanel.red);
+    LADDER((char) 185, AsciiPanel.red),
+
+    BOUNDS('x', AsciiPanel.magenta);
 
     private char glyph;
 
